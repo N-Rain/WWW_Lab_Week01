@@ -7,8 +7,8 @@
 <body>
 <form action="ControllerServlet" method="post">
 
-  <input type="hidden" name="action" value="xxx"/>
-  <input type="submit" value="Call xxxx"/>
+  <input type="hidden" name="action" value="login"/>
+  <input type="submit" value="login"/>
 </form>
 
 <hr/>

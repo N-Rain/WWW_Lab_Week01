@@ -20,7 +20,7 @@ public class GrantAccessRepository {
     private GrantAccessRepository grantAccessRepository;
 
     public GrantAccessRepository() {
-        em = Persistence.createEntityManagerFactory("test").createEntityManager();
+        em = Persistence.createEntityManagerFactory("lab_week_1").createEntityManager();
         trans = em.getTransaction();
     }
 

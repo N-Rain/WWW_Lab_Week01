@@ -25,7 +25,7 @@ public class AccountRepository {
     private GrantAccessRepository grantAccessRepository;
 
     public AccountRepository() {
-        em = Persistence.createEntityManagerFactory("test").createEntityManager();
+        em = Persistence.createEntityManagerFactory("lab_week_1").createEntityManager();
         trans = em.getTransaction();
     }
 
@@ -33,7 +33,6 @@ public class AccountRepository {
         try {
             trans.begin();
             em.persist(account);
-            //when create an account, grant it to all role with false
             List<Role> roles = roleRepository.getAllRoles();
             roles.forEach(role -> {
                 GrantAccess grantAccess = new GrantAccess(account.getAccount_id(), role.getRole_id(), false, "initialize");
@@ -58,12 +57,6 @@ public class AccountRepository {
         }
     }
 
-    /**
-     * Update status of account
-     *
-     * @param account_id: account id
-     * @param status:     1-active;0-deactivate;-1 deleted
-     */
     public boolean updateStatus(String account_id, int status) {
         try {
             trans.begin();
@@ -79,7 +72,7 @@ public class AccountRepository {
         return false;
     }
 
-    public Optional<Account> logon(String id, String psw) {
+    public Optional<Account> login(String id, String psw) {
         Account acc = em.find(Account.class, id);
         if (acc != null) {
             if (acc.getPassword().equals(psw))
@@ -89,7 +82,7 @@ public class AccountRepository {
     }
 
     public List<Account> getAllAccounts() {
-        TypedQuery<Account> q = em.createQuery("select a from Account a", Account.class);
-        return q.getResultList();
+        TypedQuery<Account> acc = em.createQuery("select a from Account a", Account.class);
+        return acc.getResultList();
     }
 }

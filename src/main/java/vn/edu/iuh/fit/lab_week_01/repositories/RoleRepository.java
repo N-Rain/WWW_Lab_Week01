@@ -17,11 +17,10 @@ public class RoleRepository {
     private final Logger logger = Logger.getLogger(AccountRepository.class.getName());
     private EntityManager em;
     private EntityTransaction trans;
-//    private AccountRepository accountRepository;
-//    private GrantAccessRepository grantAccessRepository;
+
 
     public RoleRepository() {
-        em = Persistence.createEntityManagerFactory("test").createEntityManager();
+        em = Persistence.createEntityManagerFactory("lab_week_1").createEntityManager();
         trans = em.getTransaction();
     }
 
@@ -29,8 +28,7 @@ public class RoleRepository {
         try {
             trans.begin();
             em.persist(role);
-            //when insert new role, autoatically grant access to all account with false
-            AccountRepository accountRepository=new AccountRepository();
+            AccountRepository accountRepository = new AccountRepository();
             GrantAccessRepository grantAccessRepository = new GrantAccessRepository();
             List<Account> accounts = accountRepository.getAllAccounts();
             accounts.forEach(account -> {
@@ -56,12 +54,6 @@ public class RoleRepository {
         }
     }
 
-    /**
-     * Update status of role
-     *
-     * @param role_id: account id
-     * @param status:    1-active;0-deactivate;-1 deleted
-     */
     public boolean updateStatus(String role_id, int status) {
         try {
             trans.begin();

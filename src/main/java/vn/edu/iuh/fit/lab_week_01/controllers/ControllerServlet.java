@@ -38,8 +38,8 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action.equalsIgnoreCase("xxx")){
-
+        if(action.equalsIgnoreCase("login")){
+            response.sendRedirect("login.jsp");
         }else if(action.equalsIgnoreCase("yyy")){
 
         }

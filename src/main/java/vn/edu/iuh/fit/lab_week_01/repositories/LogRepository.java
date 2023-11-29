@@ -2,24 +2,21 @@ package vn.edu.iuh.fit.lab_week_01.repositories;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.*;
-import jakarta.transaction.Transaction;
 import vn.edu.iuh.fit.lab_week_01.models.Log;
 
 import java.sql.Date;
-import java.time.Instant;
 import java.util.List;
 @Stateless
-//@TransactionAttribute(TransactionAttributeType.NEVER)
 public class LogRepository {
     private EntityManager em;
 
     public LogRepository() {
-        em = Persistence.createEntityManagerFactory("test").createEntityManager();
+        em = Persistence.createEntityManagerFactory("lab_week_1").createEntityManager();
     }
 
     public List<Log> findAll() {
-        TypedQuery<Log> q = em.createQuery("select l from Log l", Log.class);
-        return q.getResultList();
+        TypedQuery<Log> log = em.createQuery("select l from Log l", Log.class);
+        return log.getResultList();
     }
 
     public List<Log> findLogByUser(String account_id) {
@@ -41,7 +38,6 @@ public class LogRepository {
 
     public void update(Log log) {
         log.setLogout_time(new Date(System.currentTimeMillis()));
-        //new Date(Calendar.getInstance().getTimeInMillis());
         em.merge(log);
     }
 }
